@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+scikit-learn = "*"
+torch = "*"
+datasets = "*"
+transformers = "*"
+pytorch-lightning = "*"
+wandb = "*"
+pandas = "*"
+hydra-core = "*"
+omegaconf = "*"
+torchmetrics = "*"
+dvc = "*"
+hydra-colorlog = "*"
+
+[dev-packages]
+isort = "*"
+pytest = "*"
+
+[requires]
+python_version = "3.7"
