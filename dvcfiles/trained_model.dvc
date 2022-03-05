@@ -1,5 +1,5 @@
-wdir: ../multirun/2022-03-01/02-07-56/0/models
+wdir: ../outputs/2022-03-05/15-43-53/models
 outs:
-- md5: 3821fb9d323b9a4a6255ee736fd22ed2
-  size: 52678789
+- md5: 69a340f1b5f0da723b4a9923d8425e8c
+  size: 52678981
   path: best-checkpoint.ckpt.ckpt

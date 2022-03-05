@@ -1,2 +1,2 @@
 run:
-	pipenv python train.py
+	TOKENIZERS_PARALLELISM=false pipenv run python train.py training.max_epochs=5
