@@ -14,7 +14,7 @@ pandas = "*"
 hydra-core = "*"
 omegaconf = "*"
 torchmetrics = "*"
-dvc = "*"
+dvc = {extras = ["s3"], version = "*"}
 hydra-colorlog = "*"
 
 [dev-packages]
