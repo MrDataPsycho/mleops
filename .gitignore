@@ -39,6 +39,9 @@ dmypy.json
 __pycache__
 
 # Hydra and WNB
-multirun/2022-*
-outputs/2022-*
-wandb/run-*
+!multirun/
+multirun/*
+!multirun/.gitkeep
+!outputs/
+outputs/*
+!outputs/.gitkeep

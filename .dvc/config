@@ -1,0 +1,6 @@
+[core]
+    remote = data
+['remote "data"']
+    url = http://mle-ops.s3.amazonaws.com/data
+['remote "model"']
+    url = http://mle-ops.s3.amazonaws.com/model
