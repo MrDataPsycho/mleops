@@ -4,23 +4,25 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-scikit-learn = "*"
-torch = "*"
-datasets = "*"
-transformers = "*"
 pytorch-lightning = "*"
-wandb = "*"
-pandas = "*"
+datasets = "*"
+scikit-learn = "*"
 hydra-core = "*"
-omegaconf = "*"
-torchmetrics = "*"
-dvc = {extras = ["s3"], version = "*"}
 hydra-colorlog = "*"
+transformers = "*"
+omegaconf = "*"
 onnxruntime = "*"
+fastapi = "*"
+uvicorn = "*"
 
 [dev-packages]
+torch = "*"
+wandb = "*"
+pandas = "*"
+torchmetrics = "*"
 isort = "*"
 pytest = "*"
+dvc = {extras = ["s3"], version = "*"}
 
 [requires]
 python_version = "3.7"

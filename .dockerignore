@@ -1,0 +1,9 @@
+dvcfiles
+.dvc
+.dvcignore
+test
+multirun
+models/*.ckpt
+outputs
+Makefile
+README.md
