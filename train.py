@@ -51,10 +51,11 @@ def main(cfg):
         cfg.processing.max_length
     )
     cola_model = ColaModel(cfg.model.name)
+    root_dir = hydra.utils.get_original_cwd()
 
     checkpoint_callback = ModelCheckpoint(
-        dirpath="./models",
-        filename="best-checkpoint.ckpt",
+        dirpath=f"{root_dir}/models",
+        filename="best-checkpoint",
         monitor="valid/loss",
         mode="min",
     )

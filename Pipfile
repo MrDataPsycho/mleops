@@ -16,6 +16,7 @@ omegaconf = "*"
 torchmetrics = "*"
 dvc = {extras = ["s3"], version = "*"}
 hydra-colorlog = "*"
+onnxruntime = "*"
 
 [dev-packages]
 isort = "*"

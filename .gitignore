@@ -45,3 +45,8 @@ multirun/*
 !outputs/
 outputs/*
 !outputs/.gitkeep
+
+# Local Model Store from ONXX
+!models/
+models/*
+!models/.gitkeep
