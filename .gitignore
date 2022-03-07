@@ -50,3 +50,8 @@ outputs/*
 !models/
 models/*
 !models/.gitkeep
+
+
+!appdata/
+appdata/*
+!appdata/.gitkeep

@@ -5,10 +5,15 @@ import torch
 from datasets import load_dataset
 from pytorch_lightning.utilities.types import TRAIN_DATALOADERS
 from transformers import AutoTokenizer
+from pathlib import Path
+
+CURRENT_DIR = Path().absolute()
+MODEL_NAME = "google/bert_uncased_L-2_H-128_A-2"
+CACHE_DIR = str(CURRENT_DIR.joinpath("appdata"))
 
 
 class DataModule(pl.LightningDataModule):
-    def __init__(self, model_name="google/bert_uncased_L-2_H-128_A-2", batch_size=64, max_length=128):
+    def __init__(self, model_name=MODEL_NAME, batch_size=64, max_length=128):
         super().__init__()
 
         self.batch_size = batch_size
@@ -18,7 +23,7 @@ class DataModule(pl.LightningDataModule):
         self.val_data = None
 
     def prepare_data(self) -> None:
-        cola_dataset = load_dataset("glue", "cola")
+        cola_dataset = load_dataset("glue", "cola", cache_dir=CACHE_DIR)
         self.train_data = cola_dataset["train"]
         self.val_data = cola_dataset["validation"]
 
