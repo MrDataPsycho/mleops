@@ -10,6 +10,7 @@ from pathlib import Path
 CURRENT_DIR = Path().absolute()
 MODEL_NAME = "google/bert_uncased_L-2_H-128_A-2"
 CACHE_DIR = str(CURRENT_DIR.joinpath("appdata"))
+TOKENIZER = str(CURRENT_DIR.joinpath("models", "tokenizer"))
 
 
 class DataModule(pl.LightningDataModule):
@@ -18,7 +19,8 @@ class DataModule(pl.LightningDataModule):
 
         self.batch_size = batch_size
         self.max_length = max_length
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        self.tokenizer = AutoTokenizer.from_pretrained(TOKENIZER)
+        self.model_name = MODEL_NAME
         self.train_data = None
         self.val_data = None
 
@@ -71,4 +73,8 @@ if __name__ == "__main__":
     data_model.setup()
     print(next(iter(data_model.train_dataloader()))["input_ids"].shape)
     print(next(iter(data_model.train_dataloader()))["attention_mask"])
+
+    # tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+    # tokenizer.save_pretrained("./models/tokenizer/")
+    # tokenizer = AutoTokenizer.from_pretrained("./models/tokenizer")
 
