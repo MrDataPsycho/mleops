@@ -1,4 +1,6 @@
-FROM huggingface/transformers-pytorch-cpu:latest
+FROM amazon/aws-lambda-python
+
+RUN yum -y install gcc-c++
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8

@@ -12,7 +12,8 @@ scikit-learn
 hydra-core
 hydra-colorlog
 transformers
+tokenizers
 omegaconf
 onnxruntime
-fastapi
-uvicorn
+# fastapi
+# uvicorn
