@@ -34,4 +34,5 @@ if __name__ == "__main__":
     print(predictor.predict(sentence))
     sentences = ["The boy is sitting on a bench"] * 10
     for sentence in sentences:
-        predictor.predict(sentence)
+        result = predictor.predict(sentence)
+        print(result)

@@ -74,7 +74,3 @@ if __name__ == "__main__":
     print(next(iter(data_model.train_dataloader()))["input_ids"].shape)
     print(next(iter(data_model.train_dataloader()))["attention_mask"])
 
-    # tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-    # tokenizer.save_pretrained("./models/tokenizer/")
-    # tokenizer = AutoTokenizer.from_pretrained("./models/tokenizer")
-
