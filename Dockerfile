@@ -2,8 +2,8 @@ FROM public.ecr.aws/lambda/python:3.7
 
 RUN yum -y install gcc-c++
 
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
+# ENV LANG C.UTF-8
+# ENV LC_ALL C.UTF-8
 
 WORKDIR ${LAMBDA_TASK_ROOT}
 COPY . .
