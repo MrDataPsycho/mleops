@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict
 
 import pytorch_lightning as pl
 import torch
@@ -9,11 +9,17 @@ from transformers import AutoModelForSequenceClassification
 
 
 class ColaModel(pl.LightningModule):
-    def __init__(self, model_name="google/bert_uncased_L-2_H-128_A-2", lr=3e-5):
+    def __init__(self, model_name: str, lr=3e-5):
+        """
+        Create a model wrapper from pretrained model
+        :param model_name: Ex: model_name="google/bert_uncased_L-2_H-128_A-2"
+        """
+        # lr=3e-5
         super(ColaModel, self).__init__()
         self.save_hyperparameters()
         self.bert = AutoModelForSequenceClassification.from_pretrained(
-            model_name, num_labels=2
+            model_name,
+            num_labels=2
         )
 
         self.num_classes = 2
@@ -30,12 +36,25 @@ class ColaModel(pl.LightningModule):
         self.recall_micro_metric = torchmetrics.Recall(average="micro")
 
     def forward(self, input_ids, attention_mask, labels=None) -> Any:
+        """
+        Default forward operation
+        :param input_ids: Default parameter for bert
+        :param attention_mask: Default parameter for bert
+        :param labels: Default parameter for bert
+        :return: bert object with input parameter
+        """
         outputs = self.bert(
             input_ids=input_ids, attention_mask=attention_mask, labels=labels
         )
         return outputs
 
     def training_step(self, batch, batch_idx) -> STEP_OUTPUT:
+        """
+        Training abstract method
+        :param batch: single batch
+        :param batch_idx: batch idx
+        :return: loss value as numpy float/int
+        """
         outputs = self.forward(
             batch["input_ids"], batch["attention_mask"], labels=batch["label"]
         )
@@ -45,7 +64,13 @@ class ColaModel(pl.LightningModule):
         self.log("train/acc", train_acc, prog_bar=True, on_epoch=True)
         return outputs.loss
 
-    def validation_step(self, batch, batch_idx):
+    def validation_step(self, batch, batch_idx) -> Dict:
+        """
+        Validation abstract method
+        :param batch: single bathc input
+        :param batch_idx: batch idx
+        :return: logit values as numpy int/float
+        """
         labels = batch["label"]
         outputs = self.forward(
             batch["input_ids"], batch["attention_mask"], labels=batch["label"]
@@ -70,7 +95,12 @@ class ColaModel(pl.LightningModule):
         self.log("valid/f1", f1, prog_bar=True, on_epoch=True)
         return {"labels": labels, "logits": outputs.logits}
 
-    def validation_epoch_end(self, outputs):
+    def validation_epoch_end(self, outputs) -> None:
+        """
+        Run after validation
+        :param outputs: output as input to store in wand db
+        :return: Nothing
+        """
         labels = torch.cat([x["labels"] for x in outputs])
         logits = torch.cat([x["logits"] for x in outputs])
         self.logger.experiment.log(
@@ -81,5 +111,9 @@ class ColaModel(pl.LightningModule):
             }
         )
 
-    def configure_optimizers(self):
+    def configure_optimizers(self) -> torch.optim.Adam:
+        """
+        Defined optimizer
+        :return: Nothing
+        """
         return torch.optim.Adam(self.parameters(), lr=self.hparams["lr"])

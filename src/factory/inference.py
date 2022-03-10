@@ -1,7 +1,7 @@
 import torch
 
-from data import DataModule
-from model import ColaModel
+from src.factory.data import DataModule
+from src.factory.model import ColaModel
 
 
 class ColaPredictor:
@@ -30,7 +30,7 @@ class ColaPredictor:
 
 if __name__ == "__main__":
     sentence = "The boy is sitting on a bench"
-    predictor = ColaPredictor("./models/best-checkpoint.ckpt")
+    predictor = ColaPredictor("../../models/best-checkpoint.ckpt")
     print(predictor.predict(sentence))
     sentences = ["The boy is sitting on a bench"] * 10
     for sentence in sentences:

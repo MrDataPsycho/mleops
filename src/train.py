@@ -4,16 +4,18 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 from pytorch_lightning.loggers import WandbLogger
 
-from data import DataModule
-from model import ColaModel
+from src.factory.data import DataModule
+from src.factory.model import ColaModel
 import pandas as pd
 import wandb
 import hydra
 import logging
 from omegaconf.omegaconf import OmegaConf
+from src.pathconfig import PathConfig
 
 
 logger = logging.getLogger(__name__)
+PATHFINDER = PathConfig()
 
 
 class SamplesVisualisationLogger(pl.Callback):
@@ -40,21 +42,20 @@ class SamplesVisualisationLogger(pl.Callback):
         )
 
 
-@hydra.main(config_path="./configs", config_name="config")
+@hydra.main(config_path=PATHFINDER.configs, config_name="config")
 def main(cfg):
     logger.info(OmegaConf.to_yaml(cfg, resolve=True))
     logger.info(f"Using the model: {cfg.model.name}")
     logger.info(f"Using the tokenizer: {cfg.model.tokenizer}")
     cola_data = DataModule(
-        cfg.model.tokenizer,
         cfg.processing.batch_size,
         cfg.processing.max_length
     )
     cola_model = ColaModel(cfg.model.name)
-    root_dir = hydra.utils.get_original_cwd()
+    # root_dir = hydra.utils.get_original_cwd()
 
     checkpoint_callback = ModelCheckpoint(
-        dirpath=f"{root_dir}/models",
+        dirpath=PATHFINDER.models,
         filename="best-checkpoint",
         monitor="valid/loss",
         mode="min",

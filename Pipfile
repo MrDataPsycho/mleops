@@ -23,6 +23,7 @@ torchmetrics = "*"
 isort = "*"
 pytest = "*"
 dvc = {extras = ["s3"], version = "*"}
+click = "*"
 
 [requires]
 python_version = "3.7"

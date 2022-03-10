@@ -15,4 +15,4 @@ RUN pip install -r deploy-requirements.txt --no-cache-dir
 RUN python application.py
 
 # CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
-CMD [ "application.handler"]
+CMD [ "lambda_handler.handler"]

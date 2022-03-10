@@ -1,10 +1,13 @@
 import json
-from inference_onnx import ColaONNXPredictor
+from src.factory.onnx import ColaONNXPredictor
+from src.pathconfig import PathConfig
 
-predictor = ColaONNXPredictor("./models/model.onnx")
+PATHFINDER = PathConfig()
+MODEL = PATHFINDER.models.joinpath("model.onnx")
+predictor = ColaONNXPredictor(str(MODEL))
 
 
-def lambda_handler(event, context):
+def handler(event, context):
     """
     Lambda function handler for predicting linguistic acceptability of the given sentence
     :param event: post/get request context
@@ -27,4 +30,5 @@ def lambda_handler(event, context):
 
 if __name__ == "__main__":
     test = {"sentence": "this is a sample sentence"}
-    lambda_handler(test, None)
+    result = handler(test, None)
+    print(result)

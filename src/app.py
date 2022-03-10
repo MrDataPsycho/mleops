@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from inference_onnx import ColaONNXPredictor
+from src.factory.onnx import ColaONNXPredictor
 
 app = FastAPI(title="MLOps Basics App")
-predictor = ColaONNXPredictor("./models/model.onnx")
+predictor = ColaONNXPredictor("../models/model.onnx")
 
 
 @app.get("/")

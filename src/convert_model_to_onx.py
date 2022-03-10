@@ -1,26 +1,23 @@
-
 import torch
 import hydra
 import logging
 
-from omegaconf.omegaconf import OmegaConf
-
-from model import ColaModel
-from data import DataModule
+from src.factory.model import ColaModel
+from src.factory.data import DataModule
+from src.pathconfig import PathConfig
+import click
 
 logger = logging.getLogger(__name__)
+PATHFINDER = PathConfig()
 
 
-@hydra.main(config_path="./configs", config_name="config")
+@hydra.main(config_path=PATHFINDER.configs, config_name="config")
 def convert_model(cfg):
-    root_dir = hydra.utils.get_original_cwd()
-    model_name = "best-checkpoint.ckpt"
-    model_path = f"{root_dir}/models/{model_name}"
+    model_path = PATHFINDER.models.joinpath("best-checkpoint.ckpt")
     logger.info(f"Loading pre-trained model from: {model_path}")
-    cola_model = ColaModel.load_from_checkpoint(model_path)
-    export_path = f"{root_dir}/models/model.onnx"
+    cola_model = ColaModel.load_from_checkpoint(str(model_path))
+    export_path = PATHFINDER.models.joinpath("model.onnx")
     data_model = DataModule(
-        cfg.model.tokenizer,
         cfg.processing.batch_size,
         cfg.processing.max_length
     )

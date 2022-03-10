@@ -1,8 +1,8 @@
 import numpy as np
 import onnxruntime as ort
 from scipy.special import softmax
-from data import DataModule
-from utils import timing
+from src.factory.data import DataModule
+from src.factory.timer import timing
 
 
 class ColaONNXPredictor:
@@ -30,7 +30,7 @@ class ColaONNXPredictor:
 
 if __name__ == "__main__":
     sentence = "The boy is sitting on a bench"
-    predictor = ColaONNXPredictor("./models/model.onnx")
+    predictor = ColaONNXPredictor("../../models/model.onnx")
     print(predictor.predict(sentence))
     sentences = ["The boy is sitting on a bench"] * 10
     for sentence in sentences:
